@@ -1,0 +1,43 @@
+# Build outputs
+*.apk
+*.aab
+*.so
+build/
+target/
+
+# Flutter
+flutter_app/.dart_tool/
+flutter_app/.packages
+flutter_app/build/
+flutter_app/.flutter-plugins
+flutter_app/.flutter-plugins-dependencies
+flutter_app/pubspec.lock
+
+# Go
+core/vendor/
+
+# Rust
+rust_arti/target/
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/build/
+android/app/src/main/jniLibs/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.env
+credentials.json
+
+# Logs
+*.log

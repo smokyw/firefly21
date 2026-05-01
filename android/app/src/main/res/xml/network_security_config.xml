@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Network security configuration for VPN+TOR.
+     Enforces HTTPS for all connections and disables cleartext traffic. -->
+<network-security-config>
+    <!-- Disallow cleartext (HTTP) traffic globally. -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+
+    <!-- Allow localhost connections for internal IPC (Unix sockets use AF_UNIX,
+         but this covers any TCP-based local communication during development). -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">127.0.0.1</domain>
+        <domain includeSubdomains="false">localhost</domain>
+    </domain-config>
+</network-security-config>
