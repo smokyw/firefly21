@@ -50,7 +50,7 @@ class VpnTorApp extends StatelessWidget {
       brightness: brightness,
 
       // Card and surface styling.
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         elevation: isDark ? 2 : 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

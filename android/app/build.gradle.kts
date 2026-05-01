@@ -47,17 +47,9 @@ android {
         jvmTarget = "17"
     }
 
-    // NDK configuration for native libraries.
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-        }
-    }
-
     // Packaging options for native libraries.
     packaging {
         jniLibs {
-            // Keep native libraries uncompressed for faster loading.
             useLegacyPackaging = true
         }
     }
