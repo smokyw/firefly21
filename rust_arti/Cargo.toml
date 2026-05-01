@@ -1,0 +1,36 @@
+[package]
+name = "vpntor-arti"
+version = "1.0.0"
+edition = "2021"
+description = "Arti TOR client wrapper for VPN+TOR Android application"
+
+# Cross-compilation target for Android arm64-v8a.
+# Build with: cargo ndk -t arm64-v8a build --release
+
+[dependencies]
+# Arti TOR client with Pluggable Transport support.
+arti-client = { version = ">=0.41.0", features = ["pt-client"] }
+tor-rtcompat = { version = ">=0.41.0", features = ["tokio"] }
+
+# Async runtime.
+tokio = { version = "1", features = ["full"] }
+
+# Error handling.
+thiserror = "2"
+anyhow = "1"
+
+# Serialization for config.
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+
+# Logging.
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json"] }
+
+[profile.release]
+# Optimize for size on Android.
+opt-level = "z"
+lto = true
+strip = true
+panic = "abort"
+codegen-units = 1

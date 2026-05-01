@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.vpntor">
+
+    <!-- Network access for VPN tunnel. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Foreground service for VPN (Android 14+ requires specialUse type). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+
+    <!-- Notification permission (Android 13+). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <!-- Query all installed packages for per-app routing. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission"/>
+
+    <!-- Camera permission for QR code scanning. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <application
+        android:label="VPN+TOR"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="false"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:name="${applicationName}">
+
+        <!-- VPN Service: critical for Android 14+ compliance. -->
+        <service
+            android:name=".VpnTorService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:foregroundServiceType="specialUse"
+            android:exported="false"
+            android:process=":vpn_core">
+
+            <!-- Required property for Google Play validation (Android 14+). -->
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="vpn"/>
+
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
+
+        <!-- Flutter main activity. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+
+            <!-- Specifies that this is the launcher activity. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            <!-- Theme for the activity while the Flutter framework is loading. -->
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"/>
+        </activity>
+
+        <!-- Flutter embedding metadata. -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2"/>
+    </application>
+</manifest>
